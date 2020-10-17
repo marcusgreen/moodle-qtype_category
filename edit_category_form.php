@@ -24,9 +24,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-
 defined('MOODLE_INTERNAL') || die();
-
 
 /**
  * category question editing form definition.
@@ -38,7 +36,8 @@ defined('MOODLE_INTERNAL') || die();
 class qtype_category_edit_form extends question_edit_form {
 
     protected function definition_inner($mform) {
-     // $repeatarray[] = $mform->createElement('hidden', 'optionid', 0);
+      global $PAGE;
+      $PAGE->requires->js_call_amd('qtype_category/questionedit', 'init');
 
       $repeatel = $mform->createElement('text', 'group', get_string('group', 'qtype_category'));
       $this->repeat_elements([$repeatel], 2, [],
@@ -46,12 +45,6 @@ class qtype_category_edit_form extends question_edit_form {
 
       $mform->setType('group', PARAM_INT);
 
-    //  function repeat_elements($elementobjs, $repeats, $options, $repeathiddenname,
-    //  $addfieldsname, $addfieldsno=5, $addstring=null, $addbuttoninside=false){
-
-      // $this->repeat_elements($repeatarray, $repeatno,
-      // $repeateloptions, 'option_repeats', 'option_add_fields', 3, null, true);
-        // To add combined feedback (correct, partial and incorrect).
         $this->add_combined_feedback_fields(true);
         // Adds hinting features.
         $this->add_interactive_settings(true, true);
