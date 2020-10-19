@@ -36,14 +36,13 @@ defined('MOODLE_INTERNAL') || die();
 class qtype_category_edit_form extends question_edit_form {
 
     protected function definition_inner($mform) {
-      global $PAGE;
+      global $PAGE,$OUTPUT;
       $PAGE->requires->js_call_amd('qtype_category/questionedit', 'init');
+     // $mform->addElement('header','categories','Categories');
 
-      $repeatel = $mform->createElement('text', 'group', get_string('group', 'qtype_category'));
-      $this->repeat_elements([$repeatel], 2, [],
-      'notestclass', 'addtestclasses',1,'Add another group',true);
-
-      $mform->setType('group', PARAM_INT);
+      $html = $OUTPUT->render_from_template('qtype_category/fields', ['firstname' => 'marcus']);
+      $musform[] = $mform->createElement('html',$html);
+      $mform->addGroup($musform,'', [], false);
 
         $this->add_combined_feedback_fields(true);
         // Adds hinting features.
